@@ -6,7 +6,9 @@ c                                               Last Update: 2005.7.29
 c
 c-----------------------------------------------------------------------
       program main
-      implicit double precision (a-h,o-z)
+c      implicit double precision (a-h,o-z)
+      implicit none 
+      double precision nt,time,tbal,nct,ntis
       include 'param.h'
       character title*72
 c
@@ -51,36 +53,36 @@ c
      &         status='unknown')
        open(26,file='output/tkh.dat',form='formatted',
      &         status='unknown')
-       if(nsw(6).eq.1) then
-        open(27,file='output/tph.dat',form='formatted',
+      if(nsw(6).eq.1) then
+       open(27,file='output/tph.dat',form='formatted',
      &          status='unknown')
-        open(28,file='output/tzo.dat',form='formatted',
+       open(28,file='output/tzo.dat',form='formatted',
      &          status='unknown')
-        open(29,file='output/tpc.dat',form='formatted',
+       open(29,file='output/tpc.dat',form='formatted',
      &          status='unknown')
-        open(30,file='output/tdc.dat',form='formatted',
+       open(30,file='output/tdc.dat',form='formatted',
      &          status='unknown')
-        open(31,file='output/tdp.dat',form='formatted',
+       open(31,file='output/tdp.dat',form='formatted',
      &          status='unknown')
-        open(32,file='output/tdn.dat',form='formatted',
+       open(32,file='output/tdn.dat',form='formatted',
      &          status='unknown')
-        open(33,file='output/tdo.dat',form='formatted',
+       open(33,file='output/tdo.dat',form='formatted',
      &          status='unknown')
-        open(34,file='output/thb.dat',form='formatted',
+       open(34,file='output/thb.dat',form='formatted',
      &          status='unknown')
-        open(35,file='output/tpoly.dat',form='formatted',
+       open(35,file='output/tpoly.dat',form='formatted',
      &          status='unknown')
-        open(50,file='output/tother.dat',form='formatted',
+       open(50,file='output/tother.dat',form='formatted',
      &          status='unknown')
-        open(70,file='output/tspfish.dat',form='formatted',
+       open(70,file='output/tspfish.dat',form='formatted',
      &          status='unknown')  
-        open(71,file='output/tsdfish.dat',form='formatted',
+       open(71,file='output/tsdfish.dat',form='formatted',
      &          status='unknown') 
-        open(72,file='output/tpfish.dat',form='formatted',
+       open(72,file='output/tpfish.dat',form='formatted',
      &          status='unknown') 
-        open(73,file='output/tqpoc(pos).dat',form='formatted',
+       open(73,file='output/tqpoc(pos).dat',form='formatted',
      &          status='unknown') 
-        open(74,file='output/tqpoc(neg).dat',form='formatted',
+       open(74,file='output/tqpoc(neg).dat',form='formatted',
      &          status='unknown') 
        endif
       endif
@@ -113,7 +115,7 @@ c
 c
       if(mod(nt,2880).eq.0) then
        write(*,200) nt,'(step)',time/86400.d0,'(day)'
-  200  format(i10,a7,f10.2,a6)
+  200 format(i10,a7,f10.2,a6)
       endif
 c
 c     -- boundary conditions for RTS --
@@ -124,7 +126,7 @@ c
 c
 c     -- horizontal flow velocities --
 c
-       call uvcal
+      call uvcal
 c
       endif
 c
@@ -168,7 +170,7 @@ c
       if(nsw(4).eq.1) then
        close(61)
        close(62)
-	endif
+	  endif
 c
       close(63)
       close(64)

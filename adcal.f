@@ -6,7 +6,10 @@ c                                               Last Update: 2005.7.29
 c
 c-----------------------------------------------------------------------
       subroutine adcal(ww,eco,econ,qeco,fkhq)
-      implicit double precision (a-h,o-z)
+c      implicit double precision (a-h,o-z)
+      implicit  none
+      double precision advez,ww,ddz,ep,eu.el,fkhqu,fkhq,
+     &                 fkhql,fkhq,fu,dzh,fl,difez,tbal,dt
       include 'param.h'
 c
       dimension eco(0:nzmax+1)
@@ -18,11 +21,11 @@ c
 c
 c	-- advection term in the z direction --
 c
-	 if(k.eq.1) then
-	  advez=ww*eco(k)
-	 else
-        advez=ww*(eco(k)-eco(k-1))/ddz(k)
-	 endif
+	  if(k.eq.1) then
+	   advez=ww*eco(k)
+	  else
+       advez=ww*(eco(k)-eco(k-1))/ddz(k)
+	  endif
 c
 c	-- diffusion term --
 c
@@ -30,29 +33,29 @@ c
        eu=eco(k-1)
        el=eco(k+1)
 c
-	 if(k.eq.1) eu=ep
-	 if(k.eq.nz) el=ep
+	  if(k.eq.1) eu=ep
+	  if(k.eq.nz) el=ep
 c
-	 fkhqu=fkhq(k-1)
-	 fkhql=fkhq(k)
+	  fkhqu=fkhq(k-1)
+	  fkhql=fkhq(k)
 c
-       if(k.eq.1) then
-        fu=0.d0
-       else
-        fu=fkhqu*(ep-eu)/dzh(k-1)
-       endif
+      if(k.eq.1) then
+       fu=0.d0
+      else
+       fu=fkhqu*(ep-eu)/dzh(k-1)
+      endif
 c
-	 if(k.eq.nz) then
-	  fl=0.d0
-	 else
-        fl=fkhql*(el-ep)/dzh(k)
-	 endif
+	  if(k.eq.nz) then
+	   fl=0.d0
+	  else
+       fl=fkhql*(el-ep)/dzh(k)
+	  endif
 c
        difez=(fl-fu)/ddz(k)
 c
        econ(k)=eco(k)+tbal*dt*(-advez+difez+qeco(k))
 c
-   10 continue
+      10 continue
 c
       return
       end
@@ -64,26 +67,29 @@ c                                               Last Update: 2005.7.29
 c
 c-----------------------------------------------------------------------
       subroutine adcalf(m,ww,eco,econ,qeco,fkhq)
-      implicit double precision (a-h,o-z)
+c      implicit double precision (a-h,o-z)
+      implicit none 
+      double precision advez,ww,ddz,ep,eu.el,fkhqu,fkhq,
+     &                 fkhql,fkhq,fu,dzh,fl,difez,tbal,dt
       include 'param.h'
 c
       dimension eco(npmax,0:nzmax+1)
       dimension econ(npmax,0:nzmax+1)
       dimension qeco(npmax,nzmax)
-	dimension fkhq(0:nzmax)
+	  dimension fkhq(0:nzmax)
 c
       do 10 k=nz,1,-1
 c
 c	-- advection term in the z direction --
 c
-	 if(k.eq.1) then
-	  advez=ww*eco(m,k)
-	 elseif(k.eq.nz) then
-	  advez=ww*(eco(m,k)*.5d0-eco(m,k-1))/ddz(k)
-	 else
-        advez=ww*(eco(m,k)-eco(m,k-1))/ddz(k)
-	 endif
-        write (*,*)  advez
+	  if(k.eq.1) then
+	   advez=ww*eco(m,k)
+	  elseif(k.eq.nz) then
+	   advez=ww*(eco(m,k)*.5d0-eco(m,k-1))/ddz(k)
+	  else
+       advez=ww*(eco(m,k)-eco(m,k-1))/ddz(k)
+	  endif
+c     write (*,*)  advez
 c
 c	-- diffusion term --
 c
@@ -91,27 +97,27 @@ c
        eu=eco(m,k-1)
        el=eco(m,k+1)
 c
-	 if(k.eq.1) eu=ep
-	 if(k.eq.nz) el=ep
+	  if(k.eq.1) eu=ep
+	  if(k.eq.nz) el=ep
 c
-	 fkhqu=fkhq(k-1)
-	 fkhql=fkhq(k)
+	  fkhqu=fkhq(k-1)
+	  fkhql=fkhq(k)
 c
-       if(k.eq.1) then
+      if(k.eq.1) then
         fu=0.d0
-       else
+      else
         fu=fkhqu*(ep-eu)/dzh(k-1)
-       endif
+      endif
 c
-	 if(k.eq.nz) then
-	  fl=0.d0
-	 else
+	  if(k.eq.nz) then
+	   fl=0.d0
+	  else
         fl=fkhql*(el-ep)/dzh(k)
-	 endif
+	  endif
 c
-       difez=(fl-fu)/ddz(k)
+      difez=(fl-fu)/ddz(k)
 c
-       econ(m,k)=eco(m,k)+tbal*dt*(-advez+difez+qeco(m,k))
+      econ(m,k)=eco(m,k)+tbal*dt*(-advez+difez+qeco(m,k))
 c
    10 continue
       return
@@ -123,19 +129,19 @@ c                                               Author: Ayaka SAKAMOTO
 c                                               Update: 2016.2.18
 c-----------------------------------------------------------------------
       subroutine adcalb(ww,eco,econ,qeco,fkhq)
-      implicit double precision (a-h,o-z)
+c      implicit double precision (a-h,o-z)
+      implicit none 
+      double precision tbal,dt
       include 'param.h'
 c
       dimension eco(0:nzmax+1)
       dimension econ(0:nzmax+1)
       dimension qeco(nzmax)
-      dimension fkhq(0:nzmax)
+c      dimension fkhq(0:nzmax)
 c
       do 10 k=nz,1,-1
-c
-        econ(k)=eco(k)+tbal*dt*qeco(k)
+      econ(k)=eco(k)+tbal*dt*qeco(k)
 c        econ(k)=eco(k)
-c
    10 continue
       return
       end
@@ -146,19 +152,19 @@ c                                               Author: Ayaka SAKAMOTO
 c                                               Update: 2016.4.19
 c-----------------------------------------------------------------------
       subroutine adcalp(ww,eco,econ,qeco,fkhq)
-      implicit double precision (a-h,o-z)
+c      implicit double precision (a-h,o-z)
+      implicit none 
+      double precision tbal,dt
       include 'param.h'
 c
       dimension eco(0:nzmax+1)
       dimension econ(0:nzmax+1)
       dimension qeco(nzmax)
-      dimension fkhq(0:nzmax)
+c      dimension fkhq(0:nzmax)
 c
       do 10 k=nz,1,-1
-c
-       econ(k)=eco(k)+tbal*dt*qeco(k)
+      econ(k)=eco(k)+tbal*dt*qeco(k)
 c        econ(k)=eco(k)
-c
    10 continue
       return
       end
