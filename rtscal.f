@@ -85,15 +85,15 @@ c
      &          +(time-qrvr(1,nct(6)-1))
      &         *((qrvr(n*7+1,nct(6))-qrvr(n*7+1,nct(6)-1))
      &          /(qrvr(1,nct(6))-qrvr(1,nct(6)-1)))
-   40   continue
-       endif
+   40  continue
+      endif
       endif
 c
 c     -- output of boundary conditions for RTS --
 c
       if(mod(nt,100).eq.0) then
        write(61,100) time,wx,wy,tmpaq,presq,sunnq,cldq,humq,rainq
-  100  format(f15.1,7f12.2,f15.5)
+  100 format(f15.1,7f12.2,f15.5)
       endif
 c
       if(mod(nt,100).eq.0) then

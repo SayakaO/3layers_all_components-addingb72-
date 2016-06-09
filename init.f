@@ -7,6 +7,10 @@ c
 c-----------------------------------------------------------------------
       subroutine init
       implicit double precision (a-h,o-z)
+c      implicit none 
+c      double precision ntmax,idint,tmax,dt,ntis,tis,dt,ntia,idint,tia,nstrt,strt,ui,uin,vj,vjn,dens,dens0,tmp,tmp0,tmpn,phy,phy0,phyn,zoo,zoo0,zoon,bac,bac0,bacn,
+c       poc,poc0,pocn,doc,doc0,docn,dip,dip0,dipn,dinh,dinh0,dinh,dis,dis0,disn,dox,dox0,doxn,hb,hb0,hbn,poly,poly0,polyn,other,other0,othern(k)=0.d0
+c       spfish(k),spfish0,spfishn(k),sdfish(k),sdfish0,sdfishn(k),pfish(k),pfish0,pfishn(k),wx,wx0,wy,wy0,fkmx(k),fkm0,fkh(k),fkh0,
       include 'param.h'
 c
       ntmax=idint(tmax/dt)
@@ -32,14 +36,14 @@ c
        dens(k)=dens0
        tmp(k)=tmp0
        tmpn(k)=0.d0
-       do 62 m=1,np
-        phy(m,k)=phy0(m)
-        phyn(m,k)=0.d0
-   62  continue
-       do 66 m=1,nzp
-        zoo(m,k)=zoo0(m)
-        zoon(m,k)=0.d0
-   66  continue
+      do 62 m=1,np
+       phy(m,k)=phy0(m)
+       phyn(m,k)=0.d0
+   62 continue
+      do 66 m=1,nzp
+       zoo(m,k)=zoo0(m)
+       zoon(m,k)=0.d0
+   66 continue
        bac(k)=bac0
        bacn(k)=0.d0
        poc(k)=poc0
@@ -73,9 +77,9 @@ c
 c
 c     -- initial values of eddy viscosity coefficients --
 c
-	do 120 k=0,nz
-	 fkmx(k)=fkm0
-	 fkh(k)=fkh0
+	  do 120 k=0,nz
+	   fkmx(k)=fkm0
+	   fkh(k)=fkh0
   120 continue
 c
       return

@@ -39,31 +39,31 @@ c
       read(10,*) nriv
       if(nriv.gt.0) then
        do 10 i=1,nriv
-        read(10,*) iriv(i),jriv(i),qriv(i),triv(i),pcriv(i),
+       read(10,*) iriv(i),jriv(i),qriv(i),triv(i),pcriv(i),
      &             dcriv(i),dpriv(i),dnhriv(i),dxriv(i)
-   10  continue
-      endif
+   10 continue
+      end if
 c
 c     -- meteorological boundary conditions for RTS --
 c
       if(nsw(4).eq.1)then
        read(12,*) nta
        do 30 i=1,nta
-        read(12,*) tat(i),tempa(i),pres(i),sunn(i),cld(i),hum(i),
+       read(12,*) tat(i),tempa(i),pres(i),sunn(i),cld(i),hum(i),
      &             raind(i),wxt(i),wyt(i)
-   30  continue
-      endif
+   30 continue
+      end if
 c
 c     -- river boundary conditions for RTS --
 c
       if(nsw(5).eq.1) then
-      read(13,*) nra,nrb
-      if(nra.ge.1) then
-       do 40 j=1,nrb
-        read(13,*) (qrvr(i,j),i=1,nra*7+1)
-   40  continue
-      endif
-      endif
+       read(13,*) nra,nrb
+        if(nra.ge.1) then
+         do 40 j=1,nrb
+         read(13,*) (qrvr(i,j),i=1,nra*7+1)
+   40 continue
+        end if
+      end if
 c
 c     -- parameter values for momentum equations --
 c
@@ -104,24 +104,24 @@ c
 c
 c     -- parameter values for mellor-yamada closure model --
 c
-	a1my=.92d0
-	a2my=.74d0
-	b1my=16.6d0
-	b2my=10.1d0
-	c1my=.08d0
-	c2my=.7d0
-	c3my=.2d0
-	e1my=1.8d0
-	e2my=1.33d0
-	e3my=5.093d0
-	ckar=.4d0
-	fghc=-6.d0
+	  a1my=.92d0
+	  a2my=.74d0
+	  b1my=16.6d0
+	  b2my=10.1d0
+	  c1my=.08d0
+	  c2my=.7d0
+	  c3my=.2d0
+	  e1my=1.8d0
+	  e2my=1.33d0
+	  e3my=5.093d0
+	  ckar=.4d0
+	  fghc=-6.d0
 c
 c     -- initial values of physical properties  --
 c
       tmp0=10.d0
-	qs0=1.d-4
-	qsl0=1.d-4
+	  qs0=1.d-4
+	  qsl0=1.d-4
 c
 c     -- parameter values for species of plankton --
 c

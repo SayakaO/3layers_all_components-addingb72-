@@ -6,9 +6,11 @@ c                                               Last Update: 2005.7.29
 c
 c-----------------------------------------------------------------------
       program main
-c      implicit double precision (a-h,o-z)
-      implicit none 
-      double precision nt,time,tbal,nct,ntis
+      
+      implicit double precision (a-h,o-z)
+c      implicit none 
+c      double precision time,tbal
+c      integer i,nt,nct(i),ntis,intbal
       include 'param.h'
       character title*72
 c
@@ -80,19 +82,19 @@ c
      &          status='unknown') 
        open(72,file='output/tpfish.dat',form='formatted',
      &          status='unknown') 
-       open(73,file='output/tqpoc(pos).dat',form='formatted',
-     &          status='unknown') 
-       open(74,file='output/tqpoc(neg).dat',form='formatted',
-     &          status='unknown') 
-       endif
-      endif
+c       open(73,file='output/tqpoc(pos).dat',form='formatted',
+c     &          status='unknown') 
+c       open(74,file='output/tqpoc(neg).dat',form='formatted',
+c     &          status='unknown') 
+       end if
+      end if
 c
 c     -- open files for output of computational conditions for RTS --
 c
       if(nsw(4).eq.1) then
        open(61,file='output/rtst.dat',status='unknown')
        open(62,file='output/rivt.dat',status='unknown')
-      endif
+      end if
 c
 c     -- initial values of counter --
 c
@@ -116,7 +118,7 @@ c
       if(mod(nt,2880).eq.0) then
        write(*,200) nt,'(step)',time/86400.d0,'(day)'
   200 format(i10,a7,f10.2,a6)
-      endif
+      end if
 c
 c     -- boundary conditions for RTS --
 c
@@ -128,22 +130,22 @@ c     -- horizontal flow velocities --
 c
       call uvcal
 c
-      endif
+      end if
 c
 c     -- physical properties and state variables in the ecosystem --
 c
       if(nsw(2).eq.1) then
 c       if(mod(nt,intbal).eq.0) call ecocal
        call ecocal
-      endif
+      end if
 c
 c     -- output time histories --
 c
       if(ntis.ge.1) then
        if(mod(nt,ntis).eq.0) then
         call outprt
-       endif
-      endif
+       end if
+      end if
 c
       if(nt.lt.ntmax) goto 100
 c
@@ -154,7 +156,7 @@ c     -- output time histories at the last time step --
 c
       if(mod(nt,ntis).ne.0) then
        call outprt
-      endif
+      end if
 c
 c     -- close files --
 c
@@ -162,15 +164,15 @@ c
       close(36)
       if(nsw(2).eq.1) then
        close(41)
-       if(nsw(6).eq.1) then
-        close(46)
-       endif
-      endif
+        if(nsw(6).eq.1) then
+         close(46)
+        end if
+      end if
 c
       if(nsw(4).eq.1) then
        close(61)
        close(62)
-	  endif
+	  end if
 c
       close(63)
       close(64)

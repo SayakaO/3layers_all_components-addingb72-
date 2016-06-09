@@ -6,10 +6,10 @@ c                                               Last Update: 2005.7.29
 c
 c-----------------------------------------------------------------------
       subroutine adcal(ww,eco,econ,qeco,fkhq)
-c      implicit double precision (a-h,o-z)
-      implicit  none
-      double precision advez,ww,ddz,ep,eu.el,fkhqu,fkhq,
-     &                 fkhql,fkhq,fu,dzh,fl,difez,tbal,dt
+      implicit double precision (a-h,o-z)
+c      implicit  none
+c      double precision advez,ww,ddz,ep,eu.el,fkhqu,
+c     &                 fkhql,fkhq,fu,dzh,fl,difez,tbal,dt
       include 'param.h'
 c
       dimension eco(0:nzmax+1)
@@ -25,13 +25,13 @@ c
 	   advez=ww*eco(k)
 	  else
        advez=ww*(eco(k)-eco(k-1))/ddz(k)
-	  endif
+	  end if
 c
 c	-- diffusion term --
 c
-       ep=eco(k)
-       eu=eco(k-1)
-       el=eco(k+1)
+      ep=eco(k)
+      eu=eco(k-1)
+      el=eco(k+1)
 c
 	  if(k.eq.1) eu=ep
 	  if(k.eq.nz) el=ep
@@ -43,19 +43,19 @@ c
        fu=0.d0
       else
        fu=fkhqu*(ep-eu)/dzh(k-1)
-      endif
+      end if
 c
 	  if(k.eq.nz) then
 	   fl=0.d0
 	  else
        fl=fkhql*(el-ep)/dzh(k)
-	  endif
+	  end if
 c
-       difez=(fl-fu)/ddz(k)
+      difez=(fl-fu)/ddz(k)
 c
-       econ(k)=eco(k)+tbal*dt*(-advez+difez+qeco(k))
+      econ(k)=eco(k)+tbal*dt*(-advez+difez+qeco(k))
 c
-      10 continue
+   10 continue
 c
       return
       end
@@ -67,10 +67,10 @@ c                                               Last Update: 2005.7.29
 c
 c-----------------------------------------------------------------------
       subroutine adcalf(m,ww,eco,econ,qeco,fkhq)
-c      implicit double precision (a-h,o-z)
-      implicit none 
-      double precision advez,ww,ddz,ep,eu.el,fkhqu,fkhq,
-     &                 fkhql,fkhq,fu,dzh,fl,difez,tbal,dt
+      implicit double precision (a-h,o-z)
+c      implicit none 
+c      double precision advez,ww,ddz,ep,eu.el,fkhqu,
+c     &                 fkhql,fkhq,fu,dzh,fl,difez,tbal,dt
       include 'param.h'
 c
       dimension eco(npmax,0:nzmax+1)
@@ -93,9 +93,9 @@ c     write (*,*)  advez
 c
 c	-- diffusion term --
 c
-       ep=eco(m,k)
-       eu=eco(m,k-1)
-       el=eco(m,k+1)
+      ep=eco(m,k)
+      eu=eco(m,k-1)
+      el=eco(m,k+1)
 c
 	  if(k.eq.1) eu=ep
 	  if(k.eq.nz) el=ep
@@ -107,13 +107,13 @@ c
         fu=0.d0
       else
         fu=fkhqu*(ep-eu)/dzh(k-1)
-      endif
+      end if
 c
 	  if(k.eq.nz) then
 	   fl=0.d0
 	  else
         fl=fkhql*(el-ep)/dzh(k)
-	  endif
+	  end if
 c
       difez=(fl-fu)/ddz(k)
 c
@@ -128,10 +128,10 @@ c     -- dynamics for benthos--
 c                                               Author: Ayaka SAKAMOTO
 c                                               Update: 2016.2.18
 c-----------------------------------------------------------------------
-      subroutine adcalb(ww,eco,econ,qeco,fkhq)
-c      implicit double precision (a-h,o-z)
-      implicit none 
-      double precision tbal,dt
+      subroutine adcalb(ww,eco,econ,qeco)
+      implicit double precision (a-h,o-z)
+c      implicit none 
+c      double precision tbal,dt
       include 'param.h'
 c
       dimension eco(0:nzmax+1)
@@ -151,10 +151,10 @@ c     -- dynamics for fishess--
 c                                               Author: Ayaka SAKAMOTO
 c                                               Update: 2016.4.19
 c-----------------------------------------------------------------------
-      subroutine adcalp(ww,eco,econ,qeco,fkhq)
-c      implicit double precision (a-h,o-z)
-      implicit none 
-      double precision tbal,dt
+      subroutine adcalp(ww,eco,econ,qeco)
+      implicit double precision (a-h,o-z)
+c      implicit none 
+c      double precision tbal,dt
       include 'param.h'
 c
       dimension eco(0:nzmax+1)

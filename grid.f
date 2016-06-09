@@ -7,6 +7,9 @@ c
 c-----------------------------------------------------------------------
       subroutine grid
       implicit double precision (a-h,o-z)
+c      implicit none
+c      integer k,nz
+c      double precision zb(k),z(k),ddz(nz),dzh(k)
       include 'param.h'
 c
 c     -- grid system in the veritical direction --
@@ -22,8 +25,8 @@ c
    12 continue
 c
       dzh(0)=z(1)
-      do 14 k=1,nz-1
-       dzh(k)=z(k+1)-z(k)
+       do 14 k=1,nz-1
+        dzh(k)=z(k+1)-z(k)
    14 continue
       dzh(nz)=ddz(nz)*.5d0
 c

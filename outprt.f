@@ -24,24 +24,24 @@ c
 c
 c     -- state variables in the ecosystem --
 c
-       if(nsw(6).eq.1) then
-        write(27,100) time,((phy(m,k),k=1,nz),m=1,np)
-        write(28,100) time,((zoo(m,k),k=1,nz),m=1,nzp)
-        write(29,100) time,(poc(k),k=1,nz)
-        write(30,100) time,(doc(k),k=1,nz)
-        write(31,100) time,(dip(k),k=1,nz)
-        write(32,100) time,(dinh(k),k=1,nz)
-        write(33,100) time,(dox(k),k=1,nz)
-        write(34,100) time,(hb(k),k=1,nz)
-        write(35,100) time,(poly(k),k=1,nz)
-        write(50,100) time,(other(k),k=1,nz)
-        write(70,100) time,(spfish(k),k=1,nz)
-        write(71,100) time,(sdfish(k),k=1,nz)
-        write(72,100) time,(pfish(k),k=1,nz)
-        write(73,100) time,(pocpos,k=1,nz)
-        write(74,100) time,(pocneg,k=1,nz)
-       endif
-      endif
+      if(nsw(6).eq.1) then
+       write(27,100) time,((phy(m,k),k=1,nz),m=1,np)
+       write(28,100) time,((zoo(m,k),k=1,nz),m=1,nzp)
+       write(29,100) time,(poc(k),k=1,nz)
+       write(30,100) time,(doc(k),k=1,nz)
+       write(31,100) time,(dip(k),k=1,nz)
+       write(32,100) time,(dinh(k),k=1,nz)
+       write(33,100) time,(dox(k),k=1,nz)
+       write(34,100) time,(hb(k),k=1,nz)
+       write(35,100) time,(poly(k),k=1,nz)
+       write(50,100) time,(other(k),k=1,nz)
+       write(70,100) time,(spfish(k),k=1,nz)
+       write(71,100) time,(sdfish(k),k=1,nz)
+       write(72,100) time,(pfish(k),k=1,nz)
+c       write(73,100) time,(pocpos,k=1,nz)
+c       write(74,100) time,(pocneg,k=1,nz)
+      end if
+      end if
 c
   100 format(f15.1,200e14.4)
 c
