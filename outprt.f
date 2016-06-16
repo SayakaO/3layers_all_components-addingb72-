@@ -38,8 +38,9 @@ c
        write(70,100) time,(spfish(k),k=1,nz)
        write(71,100) time,(sdfish(k),k=1,nz)
        write(72,100) time,(pfish(k),k=1,nz)
-c       write(73,100) time,(pocpos,k=1,nz)
-c       write(74,100) time,(pocneg,k=1,nz)
+c       write(73,100) time,(b32,k=1,nz)
+c       write(74,100) time,(pffply1,k=1,nz)
+c       write(75,100) time,(pffply3,k=1,nz)
       end if
       end if
 c

@@ -130,21 +130,21 @@ c
 c
 c     -- parameter values for state variables in the ecosystem --
 c
-      phy0(1)=20.d0
-      zoo0(1)=2.d0
+      phy0(1)=500.d0
+      zoo0(1)=75.d0
 	  bac0=1000.d0
-      poc0=100.d0
+      poc0=500.d0
       doc0=1000.d0
-      dip0=50.d0
-      dinh0=400.d0
+      dip0=20.d0
+      dinh0=425.d0
       dis0=300.d0
       dox0=10.d0
-      hb0=20.d0
-      poly0=20.d0
-      other0=20.d0
-      spfish0=10.d0
-      sdfish0=10.d0
-      pfish0=10.d0
+      hb0=1.1d0
+      poly0=1.3d0
+      other0=2.4d-2
+      spfish0=3.6d-2
+      sdfish0=8.6d-2
+      pfish0=8.2d-3
 c
 c     -- parameter values for phytoplankton --
 c

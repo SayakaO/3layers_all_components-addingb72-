@@ -58,12 +58,12 @@ c       call adcal(ww,bac,bacn,qbac,fkh)
        call adcal(ww,dinh,dinhn,qdinh,fkh)
 c      call adcal(ww,dis,disn,qdis,fkh)
        call adcal(ww,dox,doxn,qdox,fkh)
-       call adcalb(ww,hb,hbn,qhb,fkh)
-       call adcalb(ww,poly,polyn,qpoly,fkh)
-       call adcalb(ww,other,othern,qother,fkh)
-       call adcalp(ww,spfish,spfishn,qspfish,fkh)
-       call adcalp(ww,sdfish,sdfishn,qsdfish,fkh)
-       call adcalp(ww,pfish,pfishn,qpfish,fkh)
+       call adcalb(ww,hb,hbn,qhb)
+       call adcalb(ww,poly,polyn,qpoly)
+       call adcalb(ww,other,othern,qother)
+       call adcalp(ww,spfish,spfishn,qspfish)
+       call adcalp(ww,sdfish,sdfishn,qsdfish)
+       call adcalp(ww,pfish,pfishn,qpfish)
 c
 	  end if
 c
@@ -384,16 +384,18 @@ c
 c   -- polychaeta -- 
 c         
 c  feeding = (P/Q)*(search rate*vulnerability*B prey*B predator/2*vul+search rate*B predator)
-        pq4pol=0.205
+        pq4pol=.205d0
         polsr2det=7.045d-10
-        vulpol2det=1.03
+        vulpol2det=1.03d0
        b31=pq4pol*polsr2det*vulpol2det*poc(k)*poly(k)
      &    /(2*vulpol2det+polsr2det*poly(k))
 c
 c  other mortality = (1-EE)*PB*B
-        ee4poly=0.010
-        pb4poly=2.708d-09
-       b32 = (1-ee4poly)* pb4poly * poly(k)
+      ee4ply=.01d0
+      pb4ply=2.708d-09
+c     non-predation mortality
+      nonpm=1-ee4ply
+      b32=nonpm*pb4ply*poly(k)
 c
 c   -- other benthos -- 
 c  feeding = (P/Q)*(search rate*vulnerability*B prey*B predator/2*vul+search rate*B predator)
@@ -444,43 +446,44 @@ c
 c   -- small demersal fish -- 
 c  feeding = (P/Q)*(search rate*vulnerability*B prey*B predator/2*vul+search rate*B predator)
 c  small demersal fish VS   hervibous benthos      
-          pq4sdf=0.106
-          sdfsr2hb=1.756d-10
-          vulsdf2hb=1.00
-         sdffhb1=pq4sdf*sdfsr2hb*vulsdf2hb*hb(k)*sdfish(k)
-         sdffhb2=2*vulsdf2hb+sdfsr2hb*sdfish(k)
-        sdfvshb=sdffhb1/sdffhb2
+      pq4sdf=.106d0
+      sdfsr2hb=1.756d-10
+      vulsdf2hb=1.d0
+      sdffhb1=pq4sdf*sdfsr2hb*vulsdf2hb*hb(k)*sdfish(k)
+      sdffhb2=2*vulsdf2hb+sdfsr2hb*sdfish(k)
+      sdfvshb=sdffhb1/sdffhb2
          
 c  small demersal fish VS   polychaeta      
-          pq4sdf=0.106
-          sdfsr2ply=2.026d-11
-          vulsdf2ply=2.06
-         sdffply1=pq4sdf*sdfsr2ply*vulsdf2ply*poly(k)*sdfish(k)
-         sdffply2=2*vulsdf2poly+sdfsr2ply*sdfish(k)
-        sdfvsply=sdffply1/sdffply2
+      pq4sdf=.106d0
+      sdfsr2ply=2.026d-11
+      vulsdf2ply=2.06d0
+      sdffply1=pq4sdf*sdfsr2ply*vulsdf2ply*poly(k)*sdfish(k)
+      sdffply2=2*vulsdf2poly+sdfsr2ply*sdfish(k)
+      sdfvsply=sdffply1/sdffply2
 c  small demersal fish VS   other benthos      
-          pq4sdf=0.106
-          sdfsr2other=2.00d-10
-          vulsdf2other=37.6
-         sdffoth1=pq4sdf*sdfsr2other*vulsdf2other
-     &            *other(k)*sdfish(k)
-         sdffoth2=2*vulsdf2other+sdfsr2other*sdfish(k)
-        sdfvsoth=sdffoth1/sdffoth2
+      pq4sdf=.106d0
+      sdfsr2other=2.d-10
+      vulsdf2other=37.6
+      sdffoth1=pq4sdf*sdfsr2other*vulsdf2other
+     &        *other(k)*sdfish(k)
+      sdffoth2=2*vulsdf2other+sdfsr2other*sdfish(k)
+      sdfvsoth=sdffoth1/sdffoth2
 c        
 c   small demersal fish VS   detritus      
-          pq4sdf=0.106
-          sdfsr2det=2.37d-10
-          vulsdfanddet=1.0202
-         sdffdet1=pq4sdf*sdfsr2det*vulsdfanddet*poc(k)*sdfish(k)
-         sdffdet3=2*vulsdfanddet+sdfsr2det*sdfish(k)
-        sdfvsdet=sdffdet1/sdffdet3
+      pq4sdf=.106d0
+      sdfsr2det=2.37d-10
+      vulsdfanddet=1.0202
+      sdffdet1=pq4sdf*sdfsr2det*vulsdfanddet*poc(k)*sdfish(k)
+      sdffdet3=2*vulsdfanddet+sdfsr2det*sdfish(k)
+      sdfvsdet=sdffdet1/sdffdet3
 c
-       b61=sdfvshb+sdfvsply+sdfvsoth+sdfvsdet 
+      b61=sdfvshb+sdfvsply+sdfvsoth+sdfvsdet 
 c
 c  other mortality = (1-EE)*PB*B
-          ee4sdf=0.248
-          pb4sdf=1.030d-09
-       b62=(1-ee4sdf)* pb4sdf * sdfish(k)
+      ee4sdf=0.248
+      pb4sdf=1.030d-09
+      npm4sdf=1-ee4sdf
+      b62=npm4sdf*pb4sdf*sdfish(k)
 c
 c   -- piscivorous fish -- 
 c  feeding = (P/Q)*(search rate*vulnerability*B prey*B predator/2*vul+search rate*B predator)
@@ -492,12 +495,16 @@ c  piscivorous fish VS  hervibous benthos
          pffhb3=2*vulpf2hb+pfsr2hb*pfish(k)
         pfishvshb=pffhb1/pffhb3
 c  piscivorous fish VS   polychaeta      
-          pq4pfish=0.091
-          pfishsr2ply=1.78d-11
-          vulpfish2ply=1.09
-         pffply1=pq4pfish*pfishsr2ply*vulpfish2ply*poly(k)*pfish(k)
-         pffply3=2*vulpfish2ply+pfishsr2ply*pfish(k)
-        pfishvspoly=pffply1/pffply3
+       pq4pfish=.091d0
+       pfishsr2ply=.178d-10
+       vulpf2ply=.109d+1
+      pffply1=pq4pfish*pfishsr2ply*vulpf2ply*poly(k)*pfish(k)
+c      
+      pffply3=2.d0
+c      *vulpf2ply
+c      +pfishsr2ply*pfish(k)
+      write (*,*)  pffply3
+      pfishvspoly=pffply1/pffply3
 c  piscivorous fish VS   other benthos      
           pq4pfish=0.091
           pfishsr2oth=1.21d-10
@@ -652,6 +659,7 @@ c
 c
         qhb(k)=b18-b20-sdfvshb-pfishvshb
         qpoly(k)=b31-b32-sdfvsply-pfishvspoly
+c         qpolyneg=b32+sdfvsply+pfishvspoly
         qother(k)=b41-b42-sdfvsoth-pfishvsoth
         qspfish(k)=b51-b52-pfishvsspf
         qsdfish(k)=b61-b62-pfishvssdf

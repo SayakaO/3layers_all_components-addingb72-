@@ -82,9 +82,11 @@ c
      &          status='unknown') 
        open(72,file='output/tpfish.dat',form='formatted',
      &          status='unknown') 
-c       open(73,file='output/tqpoc(pos).dat',form='formatted',
+c       open(73,file='output/tb32.dat',form='formatted',
 c     &          status='unknown') 
-c       open(74,file='output/tqpoc(neg).dat',form='formatted',
+c       open(74,file='output/pffply1.dat',form='formatted',
+c     &          status='unknown') 
+c       open(75,file='output/pffply3.dat',form='formatted',
 c     &          status='unknown') 
        end if
       end if
