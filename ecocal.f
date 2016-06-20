@@ -193,6 +193,11 @@ c-----------------------------------------------------------------------
 c    エラー対策↓-----------param.h に追加-------------------------------------------------------*解決？
 c      common /pol/qpoly(nzmax),poly(nzmax),bother(nzmax),qbother(nzmax)
 c
+c
+c     -- open file(s) for Debug --
+      open(1001,file='output/watch-variables.txt',position='append')
+c     ----------------------------
+c
       do 10 k=nz,1,-1
 c
 	  qtmp(k)=0.d0
@@ -460,6 +465,10 @@ c  small demersal fish VS   polychaeta
        sdffply1=pq4sdf*sdfsr2ply*vulsdf2ply*poly(k)*sdfish(k)
        sdffply2=2.d0*vulsdf2poly+sdfsr2ply*sdfish(k)
       sdfvsply=sdffply1/sdffply2
+c    -- Debuuuuuuuuuuuuuuuuuuuuuuuuuuug --
+       write(1001,*),'sdffply1:[',sdffply1,']','sdffply2[',sdffply2,']'
+     & ,'pq4sdf[',pq4sdf,']','sdfsr2ply[',sdfsr2ply,']',
+     & 'vulsdf2ply[',vulsdf2ply,']'
 c
 c  small demersal fish VS   other benthos      
         pq4sdf=.106d0
@@ -483,9 +492,16 @@ c
 c  other mortality = (1-EE)*PB*B
         ee4sdf=.248d0
         pb4sdf=1.030d-09
-       npm4sdf=1.d0-ee4sdf
-      b62=npm4sdf*pb4sdf*sdfish(k)
+c       npm4sdf=1.d0-ee4sdf
+      b62=(1.d0-ee4sdf)*pb4sdf*sdfish(k)
       write (*,*)  b61,b62
+c
+c    -- Debuuuuuuuuuuuuuuuuuuuuuuuuuuug --
+       write(1001,*),'sdfvshb:[',sdfvshb,']','sdfvsply[',sdfvsply,']'
+     & ,'sdfvsoth[',sdfvsoth,']','sdfvsdet[',sdfvsdet,']'
+       write(1001,*),'npm4sdf:[',npm4sdf,']','pb4sdf[',pb4sdf,']'
+     & ,'sdfish(k)[',sdfish(k),']'
+c    -------------------------------------
 c
 c   -- piscivorous fish -- 
 c  feeding = (P/Q)*(search rate*vulnerability*B prey*B predator/2*vul+search rate*B predator)
@@ -665,6 +681,11 @@ c         qpolyneg=b32+sdfvsply+pfishvspoly
 c        qsdfish(k)=0
         qsdfish(k)=b61-b62-pfishvssdf
         qpfish(k)=b71-b72
+c
+c    -- Debuuuuuuuuuuuuuuuuuuuuuuuuuuug --
+        write(1001,*),'k:',k,'qsdfish:[',qsdfish(k),']',
+     &   'b61[',b61,']','b62[',b62,']','pfishvssdf[',pfishvssdf,']'
+c    -------------------------------------
 c       
 c
 c     -- exchange of nutrients and oxygen --
@@ -686,6 +707,7 @@ c
 	  end if
 c
    10 continue
+      close(1001)
 c
       return
       end
