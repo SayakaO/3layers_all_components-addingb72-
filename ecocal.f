@@ -662,8 +662,8 @@ c
 c         qpolyneg=b32+sdfvsply+pfishvspoly
         qother(k)=b41-b42-sdfvsoth-pfishvsoth
         qspfish(k)=b51-b52-pfishvsspf
-        qsdfish(k)=0
-c        b61-b62-pfishvssdf
+c        qsdfish(k)=0
+        qsdfish(k)=b61-b62-pfishvssdf
         qpfish(k)=b71-b72
 c       
 c
