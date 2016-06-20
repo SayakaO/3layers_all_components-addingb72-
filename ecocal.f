@@ -433,13 +433,13 @@ c   small pelagic fish VS phtoplankton
           vulspf2phy=3.41d0
          spffphy1=pq4spf*spfsr2phy*vulspf2phy
      &          *phy(1,k)*spfish(k)
-         spffphy2=(2.d0*vulspf2phy+spfsr2phy)*spfish(k)
+         spffphy2=2.d0*vulspf2phy+spfsr2phy*spfish(k)
         spfvsphy=spffphy1/spffphy2
 c   small pelagic fish VS  zooplankton  
           spfsr2zp=7.183d-10
           vulspf2zp=1.d0
          spffz1=pq4spf*spfsr2zp*vulspf2zp*zoo(1,k)*spfish(k)
-         spffz2=(2.d0*vulspf2zp+spfsr2zp)*spfish(k)
+         spffz2=2.d0*vulspf2zp+spfsr2zp*spfish(k)
         spfvszp=spffz1/spffz2
        b51=spfvsphy+spfvszp
 c
@@ -463,10 +463,10 @@ c  small demersal fish VS   polychaeta
         sdfsr2ply=2.026d-11
         vulsdf2ply=2.06d0
        sdffply1=pq4sdf*sdfsr2ply*vulsdf2ply*poly(k)*sdfish(k)
-       sdffply2=2.d0*vulsdf2poly+sdfsr2ply*sdfish(k)
+       sdffply2=2.d0*vulsdf2ply+sdfsr2ply*sdfish(k)
       sdfvsply=sdffply1/sdffply2
 c    -- Debuuuuuuuuuuuuuuuuuuuuuuuuuuug --
-       write(1001,*),'sdffply1:[',sdffply1,']','sdffply2[',sdffply2,']'
+       write(1001,*),'sdffply2:[',sdffply2,']','pq4sdf[',pq4sdf,']'
      & ,'pq4sdf[',pq4sdf,']','sdfsr2ply[',sdfsr2ply,']',
      & 'vulsdf2ply[',vulsdf2ply,']'
 c
